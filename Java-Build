@@ -1,0 +1,109 @@
+
+Java - Project
+
+Build
+- Simply put, a software build is a set of executable code that is ready for use by customers. The DevOps team compiles the source code, such as code in Java or C++, into binaries to make sure it's functional and test code quality before committing it.
+
+Java
+- ava is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let programmers write once, run anywhere (WORA),[16] meaning that compiled Java code can run on all platforms that support Java without the need to recompile.[17] Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM) regardless of the underlying computer architecture. The syntax of Java is similar to C and C++, but has fewer low-level facilities than either of them. The Java runtime provides dynamic capabilities (such as reflection and runtime code modification) that are typically not available in traditional compiled languages.
+
+
+Pom-File - pom.xml - Metadata
+
+- A Project Object Model or POM is the fundamental unit of work in Maven. It is an XML file that contains information about the project and configuration details used by Maven to build the project. It contains default values for most projects. Examples for this is the build directory, which is target; the source directory, which is src/main/java; the test source directory, which is src/test/java; and so on. When executing a task or goal, Maven looks for the POM in the current directory. It reads the POM, gets the needed configuration information, then executes the goal.
+
+Build-Tools
+
+Maven
+Gradle
+Ant
+
+What Is a Build Tool in Java?
+
+A build tool is a program-based utility that can be structured as a command line to automate the application-building process. In Java, build tools compile code files into bytecode, packing it into resource libraries or executable files.
+
+Maven
+
+- Maven is an open-source project management and build automation tool sed mainly for Java projects. Hosted by the Apache Group, Maven can orchestrate several projects simultaneously, allowing developers to build the framework of the entire lifecycle with the necessary documentation.
+
+Build goals
+
+validate - validate the project is correct and all necessary information is available
+compile - compile the source code of the project
+test - test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed
+package - take the compiled code and package it in its distributable format, such as a JAR.
+verify - run any checks on results of integration tests to ensure quality criteria are met
+install - install the package into the local repository, for use as a dependency in other projects locally
+deploy - done in the build environment, copies the final package to the remote repository for sharing with other developers and projects.
+
+Build
+- Create Ec2
+- Install java
+- Install git
+- Install maven
+- Install tomcat - webserver
+- Build code
+- Deploy the artifact
+
+- Connect to Ec2
+- sudo apt-get update
+- sudo apt-get install openjdk-8-jdk
+- java -version
+- sudo apt install git
+- git clone https://github.com/Ai-TechNov/JavaWebCalculator.git
+- sudo apt install maven - build tool
+
+#Now, to build the project, run maven build goals.
+
+- cd JavaWebCal
+- mvn validate - to validate
+- mvn test - to test
+- mvn clean - to clean recent build
+- mvn build - to build
+
+#Once the build is complete, it will generate a .war file.
+#This file has to be deployed on a web-server.
+#We will use Tomcat as a web-server.
+
+#Install Tomcat
+
+- Apache Tomcat (called "Tomcat" for short) is a free and open-source implementation of the Jakarta Servlet, Jakarta Expression Language, and WebSocket technologies. It provides a "pure Java" HTTP web server environment in which Java code can also run. Thus it is a Java web application server, although not a full JEE application server.
+
+#Download tomcat
+- wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.97/bin/apache-tomcat-9.0.97.tar.gz
+- tar -xvf apache-tomcat-9.0.97.tar.gz
+- cd apache-tomcat-9.0.97
+- cd bin
+- ./startup.sh
+
+#Now tomcat is started
+#Browse your ec2 pub-ip:8080
+- find -name context.xml
+- sudo vim ./webapps/host-manager/META-INF/context.xml
+- sudo vim ./webapps/manager/META-INF/context.xml
+
+delete line 21/22
+
+#Now, we need to config login credentials
+- cd conf
+- sudo vim tomcat-users.xml
+- add below user script
+  <role rolename="manager-gui"/>
+  <user username="tomcat" password="tomcat" roles="manager-gui"/>
+#Once comfig is setup, login into TC
+
+#Copy artifact
+
+-  cp -r /home/ubuntu/JavaWebCalculator/target/*.war /home/ubuntu/apache-tomcat-9.0.97/webapps
+
+#Our App can be accessed through TC
+
+
+
+TASK 
+
+- Get your own JAVA - code
+- Build using Build tech
+- Deploy on Tomcat /
+- Team - A - Deploy on Glassfish
+- Team - B - Deploy on JBoss
