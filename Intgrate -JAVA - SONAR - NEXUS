@@ -1,0 +1,115 @@
+Intgrate -JAVA - SONAR - NEXUS
+
+#After DevOps Java Build - Project
+--CONT
+
+Create A ec2 with t2-med
+- Launch
+- OS - Ec2
+- T2-med
+- 10gb Storage
+- Connect
+
+#To Setup Sonar, we need to install jre. 
+
+- install java
+ sudo yum -y install java-1.8.0* wget unzip	
+
+
+
+Download SonarQube
+cd ~
+wget  https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-6.7.7.zip
+unzip ~/sonarqube-6.7.7.zip
+
+Start the Sonar 
+	
+> ~/sonarqube-6.7.7/bin/linux-x86-64/sonar.sh status
+> ~/sonarqube-6.7.7/bin/linux-x86-64/sonar.sh start
+	> ~/sonarqube-6.7.7/bin/linux-x86-64/sonar.sh status
+
+
+Default Credentials for login 
+Username : admin 
+Password : admin
+
+Perform Sonar Analysis 
+
+Provide Token -> Generate Token  
+What is your project main language - java
+Build Technology - Maven
+Copy the command you get in - Execute SonarQube For maven 
+Change the directory to Application i.e JavaApp you created using maven
+cd ~/JavaApp
+mvn sonar:sonar…………………………...
+http://server-ipaddress:9000
+
+
+mvn sonar:sonar \
+  -Dsonar.host.url=http://18.144.4.149:9000 \
+  -Dsonar.login=24148e7df9b41ccc61c265bc12ebf4c4b2971981
+
+
+TASK
+
+- Scan your indi code repo with Sonar
+
+
+Nexus - Build - Repo
+
+#To store build artifacts we will be using Nexus Binary repo
+#Create ans setup Nexus
+
+- Create ec2
+- Os - Amz2
+- t2-med
+- 10gb
+- ssh
+
+#Install Nexus
+
+- sudo yum -y install java-1.8*
+- wget https://download.sonatype.com/nexus/oss/nexus-2.14.18-01-bundle.tar.gz
+- tar -xvf nexus
+- cd nexus/bin
+- ./nexus start
+
+#Browse pub-ip:8081/nexus
+- usr - admin
+- pswd - admin123
+
+- Go to Repositories
+- Release
+- Summary
+- Copy the url link and update in pom.xml
+
+<distributionManagement>
+  <repository>
+    <id>releases</id>
+    <url>http://54.183.231.67:8081/nexus/content/repositories/releases</url>
+  </repository>
+</distributionManagement>
+
+#Once it is updated, modify settings.xml file
+#Updated credentials
+
+- sudo vim /etc/maven/settings.xml
+<server>   
+    <id>releases</id>   
+    <username>deployment</username>   
+    <password>deployment123</password>      
+</server>  
+
+#Once the creds are added,
+#Lets PAckage and Deploy
+
+- mvn package
+- mvn deploy
+
+#Our artifact will be build and deployed to Nexus Server. 
+
+
+TASK 
+
+- Store Artifact on NEXUS
+- Store Artifact on JFROG
