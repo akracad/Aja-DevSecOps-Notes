@@ -1,0 +1,66 @@
+Docker
+
+- Docker is a set of platform as a service (PaaS) products that use OS-level virtualization to deliver software in packages called containers.[5] The service has both free and premium tiers. The software that hosts the containers is called Docker Engine.[6] It was first released in 2013 and is developed by Docker, Inc.[7]
+
+- Docker is a tool that is used to automate the deployment of applications in lightweight containers so that applications can work efficiently in different environments in isolation.
+
+Virtualization and containerization are both technologies that allow users to run applications independently from IT infrastructure resources. They are both essential for cloud computing, but they differ in how they work and what they are best suited for: 
+
+Virtualization
+
+A hypervisor allows multiple virtual machines (VMs) to run on a single physical server, each with its own operating system. Virtualization is a good choice for running and managing multiple operating systems on a server. It's also a good choice if you have specific hardware requirements for your project. However, VMs can have slower startup times and resource allocation. 
+
+Containerization
+
+A container is a software package that contains an application's code, libraries, and other dependencies. Containers share the host system's operating system, so they are lighter and faster than VMs. Containerization is a good choice for quickly deploying and scaling applications. It's also a good choice for minimizing the number of servers you need for multiple applications
+
+
+Docker Architecture
+
+- Docker Hub/Registry - Images (AMI)
+- Docker Images       - Virtual ENV
+- Docker container    - Runtime of a Image
+- Docker Host         - VM where docker is installed
+- Docker CLI          - Command line interface
+- Docker Deamon/Ser   - Executes commands
+
+
+Install Docker
+
+- # Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 
+
+- sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+- sudo systemctl start docker
+- sudo systemctl daemon-reload 
+- sudo chmod 777 /var/run/docker.sock
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+- sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+- sudo systemctl start docker
+- sudo systemctl daemon-reload 
+- sudo chmod 777 /var/run/docker.sock
+- sudo usermod -aG docker ubuntu
+
+
+- docker images
+- docker ps 
+- docker ps -a
+- docker pull image
+- docker run image
+
+#Container can be run in two diff modes
+- Interactive Mode : -it
+- Dettached Mode : -dt 
+
+
+
